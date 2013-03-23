@@ -21,7 +21,6 @@
 #import "VillainTrackerAppDelegate.h"
 
 @implementation VillainTrackerAppDelegate
-@synthesize villain;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
@@ -42,43 +41,43 @@
 }
 
 - (IBAction)takeName:(id)sender {
-    [villain setObject:[sender stringValue] forKey:kName];
-    NSLog(@"current villain properties: %@", villain);
+    [self.villain setObject:[sender stringValue] forKey:kName];
+    NSLog(@"current villain properties: %@", self.villain);
 }
 
 - (IBAction)takeLastKnownLocation:(id)sender {
-    [villain setObject:[sender stringValue] forKey:kLastKnownLocation];
-    NSLog(@"current villain properties: %@", villain);
+    [self.villain setObject:[sender stringValue] forKey:kLastKnownLocation];
+    NSLog(@"current villain properties: %@", self.villain);
 }
 
 - (IBAction)takeLastSeenDate:(id)sender {
-    [villain setObject:[sender dateValue] forKey:kLastSeenDate];
-    NSLog(@"current villain properties: %@", villain);
+    [self.villain setObject:[sender dateValue] forKey:kLastSeenDate];
+    NSLog(@"current villain properties: %@", self.villain);
 }
 
 - (IBAction)takeSwornEnemy:(id)sender {
-    [villain setObject:[sender stringValue] forKey:kSwornEnemy];
-    NSLog(@"current villain properties: %@", villain);
+    [self.villain setObject:[sender stringValue] forKey:kSwornEnemy];
+    NSLog(@"current villain properties: %@", self.villain);
 }
 
 - (IBAction)takePrimaryMotivation:(id)sender {
-    [villain setObject:[[sender selectedCell] title] forKey:kPrimaryMotivation];
-    NSLog(@"current villain properties: %@", villain);
+    [self.villain setObject:[[sender selectedCell] title] forKey:kPrimaryMotivation];
+    NSLog(@"current villain properties: %@", self.villain);
 }
 
 - (IBAction)takePowerSource:(id)sender {
-    [villain setObject:[sender title] forKey:kPowerSource];
-    NSLog(@"current villain properties: %@", villain);
+    [self.villain setObject:[sender title] forKey:kPowerSource];
+    NSLog(@"current villain properties: %@", self.villain);
 }
 
 - (IBAction)takeEvilness:(id)sender {
-    [villain setObject:[NSNumber numberWithInteger:[sender integerValue]] forKey:kEvilness];
-    NSLog(@"current villain properties: %@", villain);
+    [self.villain setObject:[NSNumber numberWithInteger:[sender integerValue]] forKey:kEvilness];
+    NSLog(@"current villain properties: %@", self.villain);
 }
 
 - (IBAction)takeMugshot:(id)sender {
-    [villain setObject:[sender image] forKey:kMugshot];
-    NSLog(@"current villain properties: %@", villain);
+    [self.villain setObject:[sender image] forKey:kMugshot];
+    NSLog(@"current villain properties: %@", self.villain);
 }
 
 - (IBAction)takePowers:(id)sender {
@@ -88,36 +87,36 @@
             [powers addObject:[cell title]];
         }
     }
-    [villain setObject:powers forKey:kPowers];
-    NSLog(@"current villain properties: %@", villain);
+    [self.villain setObject:powers forKey:kPowers];
+    NSLog(@"current villain properties: %@", self.villain);
 }
 
 - (void)textDidChange:(NSNotification *)aNotification {
-    [villain setObject:[[self.notesView string] copy] forKey:kNotes];
-    NSLog(@"current villain properties: %@", villain);
+    [self.villain setObject:[[self.notesView string] copy] forKey:kNotes];
+    NSLog(@"current villain properties: %@", self.villain);
 }
 
 
 - (void)updateDetailViews {
-    [self.nameView setStringValue:[villain objectForKey:kName]];
+    [self.nameView setStringValue:[self.villain objectForKey:kName]];
     [self.lastKnownLocationView setStringValue:
-     [villain objectForKey:kLastKnownLocation]];
-    [self.lastSeenDateView setDateValue:[villain objectForKey:kLastSeenDate]];
-    [self.evilnessView setIntegerValue:[[villain objectForKey:kEvilness] integerValue]];
-    [self.powerSourceView setTitle:[villain objectForKey:kPowerSource]];
-    [self.mugshotView setImage:[villain objectForKey:kMugshot]];
-    [self.notesView setString:[villain objectForKey:kNotes]];
+     [self.villain objectForKey:kLastKnownLocation]];
+    [self.lastSeenDateView setDateValue:[self.villain objectForKey:kLastSeenDate]];
+    [self.evilnessView setIntegerValue:[[self.villain objectForKey:kEvilness] integerValue]];
+    [self.powerSourceView setTitle:[self.villain objectForKey:kPowerSource]];
+    [self.mugshotView setImage:[self.villain objectForKey:kMugshot]];
+    [self.notesView setString:[self.villain objectForKey:kNotes]];
     if ([self.swornEnemyView indexOfItemWithObjectValue:
-         [villain objectForKey:kSwornEnemy]]==NSNotFound) {
+         [self.villain objectForKey:kSwornEnemy]]==NSNotFound) {
         [self.swornEnemyView addItemWithObjectValue:
-         [villain objectForKey:kSwornEnemy]];
+         [self.villain objectForKey:kSwornEnemy]];
     }
-    [self.swornEnemyView selectItemWithObjectValue:[villain objectForKey:kSwornEnemy]];
-    [self.primaryMotivationView selectCellWithTag:[[[self class] motivations] indexOfObject:[villain objectForKey:kPrimaryMotivation]]];
+    [self.swornEnemyView selectItemWithObjectValue:[self.villain objectForKey:kSwornEnemy]];
+    [self.primaryMotivationView selectCellWithTag:[[[self class] motivations] indexOfObject:[self.villain objectForKey:kPrimaryMotivation]]];
     
     [self.powersView deselectAllCells];
     for (NSString *power in [[self class] powers]) {
-        if ([[villain objectForKey:kPowers] containsObject:power]) {
+        if ([[self.villain objectForKey:kPowers] containsObject:power]) {
             [[self.powersView cellWithTag:[[[self class] powers] indexOfObject:power]] setState:NSOnState];
         }
     }

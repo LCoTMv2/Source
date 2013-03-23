@@ -22,8 +22,6 @@
 
 @implementation VillainTrackerAppDelegate
 
-@synthesize villain;
-
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     self.villain = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
@@ -128,9 +126,42 @@
 }
 
 - (IBAction)deleteVillain:(id)sender {
-    
+	//
+	// Section 1:
+	//
+	[_window endEditingFor:nil];
+	NSInteger selectedRow = [self.villainsTableView selectedRow];
+	
+	//
+	// Section 2:
+	//
+	[self.villains removeObjectIdenticalTo:self.villain];
+	[self.villainsTableView reloadData];
+	
+	//
+	// Section 3:
+	//
+	if (selectedRow >= [self.villains count]) {
+		selectedRow = [self.villains count]-1;
+	}
+	
+	//
+	// Section 4:
+	//
+	if (selectedRow > -1) {
+		// deselect all rows to ensure that the tableview sees the
+		// selection as “changed”, even though it might still have
+	 	// the same row index.
+		
+		//
+		// Section 5:
+		//
+		[self.villainsTableView deselectAll:nil];
+		[self.villainsTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:selectedRow] byExtendingSelection:NO];
+		
+		[self updateDetailViews];
+	}
 }
-
 
 - (void)textDidChange:(NSNotification *)aNotification {
     [self.villain setObject:[[self.notesView string] copy] forKey:kNotes];
