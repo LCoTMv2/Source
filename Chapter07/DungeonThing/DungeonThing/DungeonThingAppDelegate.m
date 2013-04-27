@@ -36,19 +36,11 @@
 
 @implementation DungeonThingAppDelegate
 
-@synthesize characterArrayController;
-@synthesize monsterArrayController;
-@synthesize dungeonArrayController;
-
-@synthesize characters;
-@synthesize monsters;
-@synthesize dungeons;
-
 - (id)init {
     if ((self = [super init])) {
-        characters = [NSMutableArray array];
-        monsters = [NSMutableArray array];
-        dungeons = [NSMutableArray array];
+        self.characters = [NSMutableArray array];
+        self.monsters = [NSMutableArray array];
+        self.dungeons = [NSMutableArray array];
     }
     return self;
 }
@@ -123,7 +115,7 @@
     [result appendFormat:
      @"Allows Thief: %@\n",
      [ud boolForKey:kCharacterClassAllowedThief] ? @"YES" : @"NO"];
-    [characterArrayController addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:
+    [self.characterArrayController addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:
                                          result, @"createdObject",
                                          [NSDate date], @"timestamp",
                                          nil]];
@@ -160,7 +152,7 @@
     [result appendFormat:
      @"Allows Shoggoth: %@\n",
      [ud boolForKey:kMonsterTypeAllowedShoggoth] ? @"YES" : @"NO"];
-    [monsterArrayController addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:
+    [self.monsterArrayController addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:
                                          result, @"createdObject",
                                          [NSDate date], @"timestamp",
                                          nil]];
@@ -180,7 +172,7 @@
     [result appendFormat:
      @"Treasure frequency: %ld\n",
      [ud integerForKey:kDungeonTreasureFrequency]];
-    [dungeonArrayController addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:
+    [self.dungeonArrayController addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:
                                          result, @"createdObject",
                                          [NSDate date], @"timestamp",
                                          nil]];
